@@ -1,0 +1,6 @@
+## Interface: 50200
+## Title: GridStatusIlluminatedHealing
+## Notes: Tracker for Illuminated Healing mastery shields
+## Dependencies: Grid
+
+GridStatusIlluminatedHealing.lua
