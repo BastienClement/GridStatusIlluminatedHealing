@@ -202,8 +202,6 @@ function GridStatusIlluminatedHealing:UpdateUnitShield(unitid)
 	local shield = select(15, UnitBuff(unitid, SPELL_IH_NAME, nil, "PLAYER"))
 	local guid = UnitGUID(unitid)
 	
-	print(shield_max)
-	
 	if not shield then
 		if settings.noneAsZero then
 			shield = 0
