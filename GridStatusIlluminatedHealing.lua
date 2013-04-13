@@ -28,7 +28,11 @@ local GridStatusIlluminatedHealing = GridStatus:NewModule("GridStatusIlluminated
 
 local SPELL_IH_NAME = GetSpellInfo(86273)
 local shield_ratio = 1/3
-local shield_max = math.floor(UnitHealthMax("player") * shield_ratio)
+local shield_max = 0
+
+local function update_shield_max()
+	shield_max = math.floor(UnitHealthMax("player") * shield_ratio)
+end
 
 GridStatusIlluminatedHealing.defaultDB = {
 	unit_illuminated_healing = {
@@ -170,10 +174,14 @@ function GridStatusIlluminatedHealing:Reset()
 		self.core:SendStatusLost(guid, "unit_illuminated_healing")
 	end
 	wipe(unitHasShield)
+	update_shield_max()
 	self:UpdateAllUnits()
 end
 
 function GridStatusIlluminatedHealing:UpdateAllUnits()
+	if shield_max < 1 then
+		update_shield_max()
+	end
 	for guid, unitid in GridRoster:IterateRoster() do
 		self:UpdateUnitShield(unitid)
 	end
@@ -181,7 +189,7 @@ end
 
 function GridStatusIlluminatedHealing:UpdatePlayerHealth(_, unitid)
 	if UnitIsUnit("player", unitid) then
-		shield_max = math.floor(UnitHealthMax("player") * shield_ratio)
+		update_shield_max()
 		self:Reset()
 	end
 end
@@ -193,6 +201,8 @@ end
 function GridStatusIlluminatedHealing:UpdateUnitShield(unitid)
 	local shield = select(15, UnitBuff(unitid, SPELL_IH_NAME, nil, "PLAYER"))
 	local guid = UnitGUID(unitid)
+	
+	print(shield_max)
 	
 	if not shield then
 		if settings.noneAsZero then
