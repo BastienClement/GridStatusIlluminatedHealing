@@ -224,7 +224,7 @@ function GridStatusIlluminatedHealing:UpdateUnitShield(unitid)
 		settings.priority,
 		nil,
 		shieldFull and settings.colorFull or settings.color,
-		(shield > 999 and settings.shortText) and string.format("%.1fk", shield / 1000) or tostring(shield),
+		(shield > 999 and settings.shortText) and string.format("+%.0fk", shield / 1000) or ("+" .. tostring(shield)),
 		shield,
 		shield_max,
 		"Interface\\Icons\\spell_holy_absolution",
