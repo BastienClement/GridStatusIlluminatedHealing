@@ -1,4 +1,4 @@
-## Interface: 50200
+## Interface: 50300
 ## Title: GridStatusIlluminatedHealing
 ## Notes: Tracker for Illuminated Healing mastery shields
 ## Dependencies: Grid
